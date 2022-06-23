@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.meltingb.medicare.view.viewmodel.AddViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/col_f4">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            OnSingleClick="@{(v)->viewModel.moveHome(v)}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@null"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_add"
+            OnSingleClick="@{(v)->viewModel.addAlarm(v)}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@null"
+            android:src="@drawable/ic_pencil"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/add_border_box"
+                    android:elevation="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/imageSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="1.5dp"
+                        app:sliderIndicatorSelectedColor="@color/col_yel"
+                        app:sliderIndicatorUnselectedColor="@color/col_f4"
+                        app:sliderScrollTimeInSec="1"
+                        app:sliderStartAutoCycle="false" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_edit_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="@color/col_primary"
+                        android:drawableStart="@drawable/ic_pill"
+                        android:drawablePadding="12dp"
+                        android:hint="@string/pill_name"
+                        android:inputType="text"
+                        android:maxWidth="300dp"
+                        android:maxLines="1"
+                        android:minWidth="120dp"
+                        android:paddingEnd="20dp"
+                        android:text="@={viewModel.pillNameLiveData}"
+                        android:textColor="@color/col_333"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlSymmetry" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editText">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/title_take_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="24dp"
+                                android:layout_marginTop="20dp"
+                                android:text="@string/take_num"
+                                android:textColor="@color/col_333"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+                            <com.skydoves.powerspinner.PowerSpinnerView
+                                android:id="@+id/spinner_take_num"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="4dp"
+                                android:background="@drawable/add_border_box"
+                                android:elevation="3dp"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@={viewModel.takeNumLiveData}"
+                                android:textColor="@color/col_333"
+                                android:textColorHint="#8C8C8C"
+                                android:textSize="16sp"
+                                app:spinner_arrow_animate="true"
+                                app:spinner_arrow_animate_duration="200"
+                                app:spinner_arrow_gravity="end"
+                                app:spinner_arrow_padding="8dp"
+                                app:spinner_arrow_tint="@color/col_primary"
+                                app:spinner_popup_animation="bounce"
+                                app:spinner_popup_background="@color/white"
+                                app:spinner_popup_elevation="14dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/title_take_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="24dp"
+                                android:layout_marginTop="20dp"
+                                android:text="@string/take_type"
+                                android:textColor="@color/col_333"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+                            <com.skydoves.powerspinner.PowerSpinnerView
+                                android:id="@+id/spinner_take_type"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="4dp"
+                                android:background="@drawable/add_border_box"
+                                android:elevation="3dp"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@={viewModel.takeTypeLiveData}"
+                                android:textColor="@color/col_333"
+                                android:textColorHint="#8C8C8C"
+                                android:textSize="16sp"
+                                app:spinner_arrow_animate="true"
+                                app:spinner_arrow_animate_duration="200"
+                                app:spinner_arrow_gravity="end"
+                                app:spinner_arrow_padding="8dp"
+                                app:spinner_arrow_tint="@color/col_primary"
+                                app:spinner_divider_color="#8C8C8C"
+                                app:spinner_divider_show="false"
+                                app:spinner_item_array="@array/item_take_type"
+                                app:spinner_popup_animation="bounce"
+                                app:spinner_popup_background="@color/white"
+                                app:spinner_popup_elevation="14dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="2"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_spinner">
+
+                        <TextView
+                            android:id="@+id/example0_tv01"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:scrollbars="vertical"
+                            android:text="@string/alarm_days"
+                            android:textColor="@color/col_333"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:weightSum="7">
+
+                            <com.skydoves.elasticviews.ElasticCheckButton
+                                android:id="@+id/btn_sun"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_marginBottom="3dp"
+                                android:layout_weight="1"
+                                android:background="@color/col_primary"
+                                android:elevation="3dp"
+                                android:text="@string/sun_day"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                app:checkButton_duration="200"
+                                app:checkButton_isChecked="false"
+                                app:checkButton_scale="0.9" />
+
+                            <com.skydoves.elasticviews.ElasticCheckButton
+                                android:id="@+id/btn_mon"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@color/col_primary"
+                                android:text="@string/mon_day"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                app:checkButton_duration="400"
+                                app:checkButton_scale="0.9" />
+
+                            <com.skydoves.elasticviews.ElasticCheckButton
+                                android:id="@+id/btn_tue"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@color/col_primary"
+                                android:text="@string/tue_day"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                app:checkButton_duration="400"
+                                app:checkButton_scale="0.9" />
+
+                            <com.skydoves.elasticviews.ElasticCheckButton
+                                android:id="@+id/btn_wed"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@color/col_primary"
+                                android:text="@string/wed_day"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                app:checkButton_duration="400"
+                                app:checkButton_scale="0.9" />
+
+                            <com.skydoves.elasticviews.ElasticCheckButton
+                                android:id="@+id/btn_thu"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@color/col_primary"
+                                android:text="@string/thu_day"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                app:checkButton_duration="400"
+                                app:checkButton_scale="0.9" />
+
+                            <com.skydoves.elasticviews.ElasticCheckButton
+                                android:id="@+id/btn_fri"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@color/col_primary"
+                                android:text="@string/fri_day"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                app:checkButton_duration="400"
+                                app:checkButton_scale="0.9" />
+
+                            <com.skydoves.elasticviews.ElasticCheckButton
+                                android:id="@+id/btn_sat"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@color/col_primary"
+                                android:text="@string/sat_day"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                app:checkButton_duration="400"
+                                app:checkButton_scale="0.9" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_take_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/alarm_time"
+                            android:textColor="@color/col_333"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/ll_time1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="53dp"
+                                android:orientation="horizontal"
+                                android:visibility="@{viewModel.alarmTime1Visible}">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/add_border_box"
+                                    android:elevation="3dp"
+                                    android:orientation="horizontal"
+                                    android:visibility="@{viewModel.alarmTime1Visible}">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="8dp"
+                                        android:src="@drawable/ic_alarm_clock" />
+
+                                    <com.skydoves.powerspinner.PowerSpinnerView
+                                        android:id="@+id/spinner_hour1"
+                                        android:layout_width="45dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:padding="4dp"
+                                        android:text="@={viewModel.timeHours1LiveData}"
+                                        android:textColor="@color/col_333"
+                                        android:textColorHint="#8C8C8C"
+                                        android:textSize="16sp"
+                                        app:spinner_arrow_show="false"
+                                        app:spinner_item_array="@array/item_hour"
+                                        app:spinner_popup_animation="bounce"
+                                        app:spinner_popup_background="@color/white"
+                                        app:spinner_popup_elevation="14dp" />
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text=":"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+
+                                    <com.skydoves.powerspinner.PowerSpinnerView
+                                        android:id="@+id/spinner_minute1"
+                                        android:layout_width="45dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="4dp"
+                                        android:gravity="center"
+                                        android:padding="4dp"
+                                        android:text="@={viewModel.timeMinutes1LiveData}"
+                                        android:textColor="@color/col_333"
+                                        android:textColorHint="#8C8C8C"
+                                        android:textSize="16sp"
+                                        app:spinner_arrow_show="false"
+                                        app:spinner_item_array="@array/item_minute"
+                                        app:spinner_popup_animation="bounce"
+                                        app:spinner_popup_background="@color/white"
+                                        app:spinner_popup_elevation="14dp" />
+
+                                </LinearLayout>
+
+                                <ImageButton
+                                    android:id="@+id/btn_del_time1"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:visibility="@{viewModel.deleteTime1Visible}"
+                                    OnSingleClick="@{()->viewModel.deleteTime(1)}"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginBottom="3dp"
+                                    android:background="@color/col_transparency"
+                                    android:src="@drawable/ic_baseline_cancel_24" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_time2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="53dp"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal"
+                                android:visibility="@{viewModel.alarmTime2Visible}">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/add_border_box"
+                                    android:elevation="3dp"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="8dp"
+                                        android:src="@drawable/ic_alarm_clock" />
+
+                                    <com.skydoves.powerspinner.PowerSpinnerView
+                                        android:id="@+id/spinner_hour2"
+                                        android:layout_width="45dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:padding="4dp"
+                                        android:text="@={viewModel.timeHours2LiveData}"
+                                        android:textColor="@color/col_333"
+                                        android:textColorHint="#8C8C8C"
+                                        android:textSize="16sp"
+                                        app:spinner_arrow_show="false"
+                                        app:spinner_item_array="@array/item_hour"
+                                        app:spinner_popup_animation="bounce"
+                                        app:spinner_popup_background="@color/white"
+                                        app:spinner_popup_elevation="14dp" />
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text=":"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+
+                                    <com.skydoves.powerspinner.PowerSpinnerView
+                                        android:id="@+id/spinner_minute2"
+                                        android:layout_width="45dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="4dp"
+                                        android:gravity="center"
+                                        android:padding="4dp"
+                                        android:text="@={viewModel.timeMinutes2LiveData}"
+                                        android:textColor="@color/col_333"
+                                        android:textColorHint="#8C8C8C"
+                                        android:textSize="16sp"
+                                        app:spinner_arrow_show="false"
+                                        app:spinner_item_array="@array/item_minute"
+                                        app:spinner_popup_animation="bounce"
+                                        app:spinner_popup_background="@color/white"
+                                        app:spinner_popup_elevation="14dp" />
+
+                                </LinearLayout>
+
+                                <ImageButton
+                                    android:id="@+id/btn_del_time2"
+                                    android:layout_width="40dp"
+                                    OnSingleClick="@{()->viewModel.deleteTime(2)}"
+                                    android:visibility="@{viewModel.deleteTime2Visible}"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginBottom="3dp"
+                                    android:background="@color/col_transparency"
+                                    android:src="@drawable/ic_baseline_cancel_24" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_time3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="53dp"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal"
+                                android:visibility="@{viewModel.alarmTime3Visible}">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/add_border_box"
+                                    android:elevation="3dp"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="8dp"
+                                        android:src="@drawable/ic_alarm_clock" />
+
+                                    <com.skydoves.powerspinner.PowerSpinnerView
+                                        android:id="@+id/spinner_hour3"
+                                        android:layout_width="45dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:padding="4dp"
+                                        android:text="@={viewModel.timeHours3LiveData}"
+                                        android:textColor="@color/col_333"
+                                        android:textColorHint="#8C8C8C"
+                                        android:textSize="16sp"
+                                        app:spinner_arrow_show="false"
+                                        app:spinner_item_array="@array/item_hour"
+                                        app:spinner_popup_animation="bounce"
+                                        app:spinner_popup_background="@color/white"
+                                        app:spinner_popup_elevation="14dp" />
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text=":"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+
+                                    <com.skydoves.powerspinner.PowerSpinnerView
+                                        android:id="@+id/spinner_minute3"
+                                        android:layout_width="45dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="4dp"
+                                        android:gravity="center"
+                                        android:padding="4dp"
+                                        android:text="@={viewModel.timeMinutes3LiveData}"
+                                        android:textColor="@color/col_333"
+                                        android:textColorHint="#8C8C8C"
+                                        android:textSize="16sp"
+                                        app:spinner_arrow_show="false"
+                                        app:spinner_item_array="@array/item_minute"
+                                        app:spinner_popup_animation="bounce"
+                                        app:spinner_popup_background="@color/white"
+                                        app:spinner_popup_elevation="14dp" />
+
+                                </LinearLayout>
+
+                                <ImageButton
+                                    android:id="@+id/btn_del_time3"
+                                    OnSingleClick="@{()->viewModel.deleteTime(3)}"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:visibility="@{viewModel.deleteTime3Visible}"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginBottom="3dp"
+                                    android:background="@color/col_transparency"
+                                    android:src="@drawable/ic_baseline_cancel_24" />
+
+                            </LinearLayout>
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_add_time"
+                                OnSingleClick="@{()->viewModel.addTime()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="3dp"
+                                android:background="@drawable/add_border_box"
+                                android:drawableLeft="@drawable/ic_baseline_add_24"
+                                android:padding="4dp"
+                                android:text="@string/add"
+                                android:textColor="@color/col_primary"
+                                android:textSize="12sp"
+                                android:visibility="@{viewModel.btnAddVisible}" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_delete"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="40dp"
+                        android:text="@string/delete"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_take_time" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

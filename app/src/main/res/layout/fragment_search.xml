@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.meltingb.medicare.view.viewmodel.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/col_f4"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/ll_adView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:background="@color/col_f4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:adSize="BANNER"
+                app:adUnitId="@string/ad_banner_test_id" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/home_border_box"
+            android:elevation="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_adView">
+
+            <TextView
+                android:id="@+id/tv_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="medicare - 의약품 정보 검색"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_app_name">
+
+                <com.skydoves.powerspinner.PowerSpinnerView
+                    android:id="@+id/spinner_type"
+                    android:layout_width="110dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/add_border_box"
+                    android:elevation="3dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:textColor="@color/col_333"
+                    android:textColorHint="#8C8C8C"
+                    android:textSize="14sp"
+                    app:spinner_arrow_animate="true"
+                    app:spinner_arrow_animate_duration="200"
+                    app:spinner_arrow_gravity="end"
+                    app:spinner_arrow_padding="8dp"
+                    app:spinner_arrow_tint="@color/col_primary"
+                    app:spinner_item_array="@array/item_search_type"
+                    app:spinner_popup_animation="bounce"
+                    app:spinner_popup_background="@color/white"
+                    app:spinner_popup_elevation="14dp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/add_border_box"
+                        android:hint="@{viewModel.hintTextLiveData}"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="30dp"
+                        android:text="@={viewModel.searchTextLiveData}"
+                        android:textColor="@color/col_333"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/btn_search_pill"
+                        OnSingleClick="@{(v)->viewModel.searchPillInfo(v)}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:background="@color/col_transparency"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:src="@drawable/ic_search_on"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/et_search"
+                        app:layout_constraintTop_toTopOf="@+id/et_search" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pill_info"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:indeterminateTint="@color/col_primary"
+            android:visibility="@{viewModel.progressVisible}"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_pill_info"
+            app:layout_constraintEnd_toEndOf="@+id/rv_pill_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_pill_info" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_message"
+            android:textColor="@color/col_666"
+            android:textSize="12sp"
+            android:visibility="@{viewModel.progressVisible}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/home_bottom_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageButton
+                android:id="@+id/btn_home"
+                OnSingleClick="@{()->viewModel.moveMenu(0)}"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="36dp"
+                android:background="@null"
+                android:src="@drawable/ic_home_off"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_help"
+                OnSingleClick="@{()->viewModel.moveMenu(1)}"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="36dp"
+                android:background="@null"
+                android:src="@drawable/ic_calendar_off"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_home"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_search"
+                OnSingleClick="@{()->viewModel.moveMenu(2)}"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="36dp"
+                android:background="@null"
+                android:src="@drawable/ic_search_on"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_hospital"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_hospital"
+                OnSingleClick="@{()->viewModel.moveMenu(3)}"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="36dp"
+                android:background="@null"
+                android:src="@drawable/ic_hospital_off"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/btn_add"
+            OnSingleClick="@{()->viewModel.moveMenu(4)}"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/home_btn_add"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

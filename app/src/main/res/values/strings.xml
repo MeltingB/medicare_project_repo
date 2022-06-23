@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">medicare</string>
+    <string name="ad_app_id">ca-app-pub-2616399306200183~6876286650</string>
+    <string name="ad_banner_unit_id">ca-app-pub-2616399306200183/4468765101</string>
+    <string name="ad_front_unit_id">ca-app-pub-2616399306200183/4137592612</string>
+    <string name="ad_banner_test_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_front_test_id">ca-app-pub-3940256099942544/1033173712</string>
+
+    <string name="sun_day">일</string>
+    <string name="mon_day">월</string>
+    <string name="tue_day">화</string>
+    <string name="wed_day">수</string>
+    <string name="thu_day">목</string>
+    <string name="fri_day">금</string>
+    <string name="sat_day">토</string>
+    <string name="pill_name">약 이름</string>
+    <string name="take_num">복용량</string>
+    <string name="take_type">약 타입</string>
+    <string name="alarm_days">알람 반복 요일</string>
+    <string name="alarm_time">알림 시간</string>
+    <string name="add">추가</string>
+    <string name="loading_message">검색 데이터를 불러오는중...</string>
+    <string name="cancel">취소</string>
+    <string name="settings">설정</string>
+    <string name="permission_request_message">내 주변 약국 및 병원 찾기 서비스를 이용하시기 위해서는 위치 정보 액세스 권한을 허용해주세요.</string>
+    <string name="delete">삭제</string>
+    <string name="confirm">확인</string>
+    <string name="delete_message">삭제하시겠습니까?</string>
+    <string name="delete_fail_message">삭제 오류가 발생하였습니다.\n다시 시도해주세요.</string>
+    <string name="btn_save">수정하기</string>
+
+</resources>
